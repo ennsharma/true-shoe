@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-contract SneakerAuctionContract {
+contract SneakerTransferContract {
     // The address of the vendor account.
     address public vendor;
 
@@ -44,7 +44,7 @@ contract SneakerAuctionContract {
     }
 
     function addSneakerPrice() public payable {
-        require(msg.sender == auctionContract);
+        require(msg.sender == customer);
         sneakerPrice = msg.value;
         sneakerPriceAdded = true;
     }
@@ -63,6 +63,7 @@ contract SneakerAuctionContract {
         customer.transfer(sneakerPrice);
     }
 
+    /// Verifies vendor's timely delivery via USPS oracle.
     function verifyDelivery() public {
         require(sneakerPriceAdded, "Assets not yet provided.");
         require(!delivered, "The sale amount has already been claimed.");
