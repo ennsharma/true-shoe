@@ -1,67 +1,76 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
-contract SneakerTransferContract {
-    // The address of the account that created this ballot.
-    address public ballotCreator;
+contract SneakerAuctionContract {
+    // The address of the vendor account.
+    address public vendor;
 
-    // Is voting finished? The ballot creator determines when to set this flag.
-    bool public votingEnded;
+    // The address of the customer account.
+    address public customer;
 
-    // Candidate names
-    bytes32[] public candidateNames;
+    // The address of the corresponding auction contract.
+    address public auctionContract;
 
-    // Keep track of which addresses have voted already to prevent multiple votes.
-    mapping (address => bool) public hasVoted;
+    // Current state of the transfer.
+    uint public sneakerPrice;
+    bool public sneakerPriceAdded;
 
-    // Tallies for each candidate
-    mapping (bytes32 => uint256) private votesReceived;
+    uint public deliveryWindow;
+    bool public delivered;
+    bool public refunded;
 
-    // The total number of votes cast so far. Revealed before voting has ended.
-    uint256 public totalVotes;
+    // Events that will be fired on changes.
+    event SneakerDelivered(address vendor, address customer);
+    event RefundCompleted(address vendor, address customer);
+    event DeliveryTimeLimitExpired(address vendor, address customer);
 
-    constructor(bytes32[] _candidateNames) public {
-        ballotCreator = msg.sender;
-        candidateNames = _candidateNames;
+    /// Create a simple transfer with `_timeout`
+    /// seconds until the `_customer` is refunded
+    /// for untimely delivery by the `_vendor`
+    constructor(
+        address _vendor,
+        address _customer,
+        address _auctionContract,
+        uint _timeout
+    ) public {
+        vendor = _vendor;
+        customer = _customer;
+        auctionContract = _auctionContract;
+
+        deliveryWindow = now + _timeout;
+
+        sneakerPriceAdded = false;
+        delivered = false;
+        refunded = false;
     }
 
-    function voteForCandidate(bytes32 candidate) public {
-        // can only vote during voting period
-        require(!votingEnded);
-        // candidate must be part of the ballot
-        require(validCandidate(candidate));
-        // one vote per address (not sybil resistant)
-        require(!hasVoted[msg.sender]);
-        // prevent overflow
-        require(votesReceived[candidate] < ~uint256(0));
-        require(totalVotes < ~uint256(0));
-
-        votesReceived[candidate] += 1;
-        hasVoted[msg.sender] = true;
-        totalVotes += 1;
+    function addSneakerPrice() public payable {
+        require(msg.sender == auctionContract);
+        sneakerPrice = msg.value;
+        sneakerPriceAdded = true;
     }
 
-    function endVoting() public returns (bool) {
-        require(msg.sender == ballotCreator);  // Only ballot creator can end the vote.
-        votingEnded = true;
-        return true;
+    /// Refund a customer whose delivery window was not honored.
+    function refund() public {
+        require(!refunded, "The refund amount has already been refunded.");
+        require(sneakerPriceAdded, "Assets not yet provided.");
+        require(!delivered, "The sneakers were delivered on time.");
+        require(now > deliveryWindow, "The delivery window has not yet expired.");
+
+        refunded = true;
+        emit RefundCompleted(vendor, customer);
+        emit DeliveryTimeLimitExpired(vendor, customer);
+
+        customer.transfer(sneakerPrice);
     }
 
-    function totalVotesFor(bytes32 candidate) view public returns (uint256) {
-        require(validCandidate(candidate));
-        require(votingEnded);  // Don't reveal votes until voting has ended
-        return votesReceived[candidate];
-    }
+    function verifyDelivery() public {
+        require(sneakerPriceAdded, "Assets not yet provided.");
+        require(!delivered, "The sale amount has already been claimed.");
+        require(now <= deliveryWindow, "The timeout has already expired.");
 
-    function numCandidates() public constant returns(uint count) {
-        return candidateNames.length;
-    }
+        delivered = true; // TODO: Replace with API call to DeliveryService
+        emit SneakerDelivered(vendor, customer);
 
-    function validCandidate(bytes32 candidate) view public returns (bool) {
-        for(uint i = 0; i < candidateNames.length; i++) {
-            if (candidateNames[i] == candidate) {
-                return true;
-            }
-        }
-        return false;
+        vendor.transfer(sneakerPrice);
     }
 }
