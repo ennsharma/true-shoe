@@ -1,10 +1,10 @@
 import "../stylesheets/app.css";
-import {default as Web3c} from 'web3c';
+import {default as Web3c} from "web3c";
 
-import ballot_artifacts from '../../build/contracts/SecretBallot.json'
+import auction_artifacts from "../../build/contracts/SneakerAuctionContract.json";
 
-var web3c, account, SecretBallot, contractAddress;
-var votingEnded = false;
+var web3c, account, SneakerAuctionContract, contractAddress;
+var auctionEnded = false;
 var candidates = [];
 var nameRegex = new RegExp('^\\w+$');
 
@@ -24,27 +24,27 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 window.refreshVoteTotals = async function () {
-    let totalVotes = await SecretBallot.methods.totalVotes().call();
-    $("#total-votes").html(totalVotes.toString());
+    let highestBid = await SneakerAuctionContract.methods.highestBid().call();
+    $("#total-votes").html(highestBid.toString());
 
-    var hasVoted = await SecretBallot.methods.hasVoted(account).call();
+    var highestBidder = await SneakerAuctionContract.methods.hasVoted(account).call();
 
-    $("#vote-status-alert").removeClass("blinking");
-    if (hasVoted) {
-      $("#vote-status-alert").text("Your vote has been registered.")
-    } else {
-      $("#vote-status-alert").text("You have not voted yet.")
-    }
+    // $("#vote-status-alert").removeClass("blinking");
+    // if (hasVoted) {
+    //   $("#vote-status-alert").text("Your vote has been registered.")
+    // } else {
+    //   $("#vote-status-alert").text("You have not voted yet.")
+    // }
 
-    if (!hasVoted && !votingEnded) {
-      $(".vote-button").removeClass("hidden");
-    } else {
-      $(".vote-button").addClass("hidden");
-    }
+    // if (!hasVoted && !votingEnded) {
+    //   $(".vote-button").removeClass("hidden");
+    // } else {
+    //   $(".vote-button").addClass("hidden");
+    // }
 }
 
 window.endVoting = async function () {
-  let end = SecretBallot.methods.endVoting();
+  let end = SneakerAuctionContract.methods.endAuction();
   let success = await end.send();
     if (success) {
       location.reload();
@@ -73,28 +73,23 @@ function startNew() {
 }
 
 window.deploy = async function() {
-  let candidates_ascii = $("#candidates").val().trim().split("\n");
-  for (let i = 0; i < candidates_ascii.length; i++) {
-    if (!nameRegex.test(candidates_ascii[i])) {
-      $("#deploy-status").text("Error: candidate name '" + candidates_ascii[i] + "' is invalid. aborting.");
-      return;
-    }
-  }
+  $("#auction-button").addClass("hidden");
+  $("#new-auction").removeClass("hidden");
+  $("#bid-form").removeClass("hidden");
 
-  let candidates = $("#candidates").val().trim().split("\n").map(web3c.utils.fromAscii);
-  let protoBallot = new web3c.confidential.Contract(ballot_artifacts.abi, undefined, {from: account});
+  let protoAuction = new web3c.confidential.Contract(ballot_artifacts.abi, undefined, {from: account});
   try {
-    let deployMethod = protoBallot.deploy({
+    let deployMethod = protoAuction.deploy({
       data: ballot_artifacts.bytecode,
-      arguments: [candidates]
+      arguments: [200000, web3.utils.toWei('1', 'ether')]
     });
-    SecretBallot = await deployMethod.send();
+    SneakerAuctionContract = await deployMethod.send();
   } catch(e) {
     $("#deploy-status").text("Error Deploying: " + e);
-    return
+    return;
   }
   // reload to run page that can be shared.
-  window.location.href+="?ballot="+ SecretBallot.options.address;
+  window.location.href+="?auction="+ SneakerAuctionContract.options.address;
 }
 
 async function runAt(address) {

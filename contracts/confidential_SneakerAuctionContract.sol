@@ -89,7 +89,7 @@ contract SneakerAuctionContract {
 
     /// End the auction and send the highest bid
     /// to the beneficiary.
-    function auctionEnd() public {
+    function endAuction() public returns (bool) {
         // Anyone can end the auction, but only once the auction timeout expires.
         require(now >= auctionEnd, "Auction not yet ended.");
         require(!auctionEnded, "auctionEnd has already been called.");
@@ -101,5 +101,6 @@ contract SneakerAuctionContract {
 
         // TODO: Initiate call to SneakerTransferContract, directly from the SneakerAuctionContract
         //       Currently not possible to call other contracts via contract-kit
+        return true;
     }
 }
