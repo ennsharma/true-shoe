@@ -4,197 +4,97 @@
     <title>Auction Application</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    <style type="text/css">
-    .form-style-6{
-        font: 95% Arial, Helvetica, sans-serif;
-        max-width: 400px;
-        margin: 10px auto;
-        padding: 16px;
-        background: #F7F7F7;
-    }
-    .form-style-6 h1{
-        background: #43D1AF;
-        padding: 20px 0;
-        font-size: 140%;
-        font-weight: 300;
-        text-align: center;
-        color: #fff;
-        margin: -16px -16px 16px -16px;
-    }
-    .form-style-6 input[type="text"],
-    .form-style-6 input[type="date"],
-    .form-style-6 input[type="datetime"],
-    .form-style-6 input[type="email"],
-    .form-style-6 input[type="number"],
-    .form-style-6 input[type="search"],
-    .form-style-6 input[type="time"],
-    .form-style-6 input[type="url"],
-    .form-style-6 textarea,
-    .form-style-6 select 
-    {
-        -webkit-transition: all 0.30s ease-in-out;
-        -moz-transition: all 0.30s ease-in-out;
-        -ms-transition: all 0.30s ease-in-out;
-        -o-transition: all 0.30s ease-in-out;
-        outline: none;
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        width: 100%;
-        background: #fff;
-        margin-bottom: 4%;
-        border: 1px solid #ccc;
-        padding: 3%;
-        color: #555;
-        font: 95% Arial, Helvetica, sans-serif;
-    }
-    .form-style-6 input[type="text"]:focus,
-    .form-style-6 input[type="date"]:focus,
-    .form-style-6 input[type="datetime"]:focus,
-    .form-style-6 input[type="email"]:focus,
-    .form-style-6 input[type="number"]:focus,
-    .form-style-6 input[type="search"]:focus,
-    .form-style-6 input[type="time"]:focus,
-    .form-style-6 input[type="url"]:focus,
-    .form-style-6 textarea:focus,
-    .form-style-6 select:focus
-    {
-        box-shadow: 0 0 5px #43D1AF;
-        padding: 3%;
-        border: 1px solid #43D1AF;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    .form-style-6 input[type="submit"],
-    .form-style-6 input[type="button"]{
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        width: 100%;
-        padding: 3%;
-        background: #43D1AF;
-        border-bottom: 2px solid #30C29E;
-        border-top-style: none;
-        border-right-style: none;
-        border-left-style: none;    
-        color: #fff;
-    }
-    .form-style-6 input[type="submit"]:hover,
-    .form-style-6 input[type="button"]:hover{
-        background: #2EBC99;
-    }
+        .listing {
+            float: left;
+            width: 33.33%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .auction-listings::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
     </style>
 </head>
 <body class="container" onload="showMinimumBid()">
-<center><h1>TrueShoe Auction dApp</h1></center>
 <center>
-    <div class="center">
-        <div><b>Item:</b> Adidas Yeezy Boost 350 V2 Zebra</div><br />
-        <a id="auction-button" onclick="deploy()" class="btn btn-lg btn-danger hidden">Create auction.</a><br />
-        <span id="deploy-status"></span>
-    </div>
+    <h1>TrueShoe Auction dApp</h1>
+    <h3>Select item(s) below!</h3>
 </center>
-<div id="new-auction" class="table-responsive">
-    <center>
-        <div><img src="img/yeezy.jpg" width="300" height="200">
-        <div><b>Bidding:</b>&nbsp;&nbsp;<span id="bidding-status">Open!</span></div>
-        <div><b>Highest Bid:</b>&nbsp;&nbsp;<span id="highest-bid"></span></div>
-        <div class="alert alert-info wallet-div hidden" id="wallet-div">
-            <div><b>Your wallet address</b>
-                <div id="wallet-address"></div>
-            </div>
-        </div>
-        <table class="table table-striped" id="auction-table">
-            <thead>
-            <tr>
-                <th>Item Specs</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Style</td>
-                    <td>CP9654</td>
-                </tr>
-                <tr>
-                    <td>Colorway</td>
-                    <td>White/Core Black/Red</td>
-                </tr>
-                <tr>
-                    <td>Retail Price</td>
-                    <td>$220</td>
-                </tr>
-                <tr>
-                    <td>Release Date</td>
-                    <td>2017-02-25</td>
-                </tr>
-                <tr>
-                    <td>Size</td>
-                    <td>U.S. Men's 11</td>
-                </tr>
-                <tr>
-                    <td>Last Sale</td>
-                    <td>$280</td>
-                </tr>
-            </tbody>
-        </table>
-    </center>
+<div class="auction-listings">
+    <div id="yeezy-listing" class="listing">
+        <center>
+            <img src="img/yeezy.jpg" width="300" height="200">
+            <div class="name"><b>Adidas Yeezy Boost 350 V2 Zebra: <font color="red">2.18 ETH</font></b></div><br />
+            <a href="yeezy.html" id="auction-button" class="btn btn-lg btn-danger" target="_blank">Join auction.</a>
+        </center>
+    </div>
+    <div class="listing">
+        <center>
+            <img src="img/airmax.jpg" width="300" height="200">
+            <div class="name"><b>Air Max 1/97 Sean Wotherspoon: <font color="red">4.76 ETH</font></b></div><br />
+            <a id="auction-button" class="btn btn-lg btn-danger">Join auction.</a>
+        </center>
+    </div>
+    <div class="listing">
+        <center>
+            <img src="img/timberland.jpeg" width="300" height="200">
+            <div class="name"><b>Timberland 6" Comme des Garcons Wheat: <font color="red">3.65 ETH</font></b></div><br />
+            <a id="auction-button" class="btn btn-lg btn-danger">Join auction.</a>
+        </center>
+    </div>
 </div>
-<center>
-    <div id="bid-form" class="form-style-6">
-        <h3>Place your bid!</h3>
-        <form>
-            <input type="text" name="name" placeholder="Your Name" />
-            <input type="number" step="0.01" name="bid" placeholder="Your Bid (in ETH)" />
-            <input type="submit" value="Click" onClick="updateBid(this.form)"/>
-        </form>
+<div class="auction-listings">
+    <div id="kyrie-listing" class="listing">
+        <center>
+            <img src="img/kyrie.jpg" width="300" height="200">
+            <div class="name"><b>Kyrie 4 Confetti: <font color="red">2.37 ETH</font></b></div><br />
+            <a href="kyrie.html" id="auction-button" class="btn btn-lg btn-danger" target="_blank">Join auction.</a>
+        </center>
     </div>
-</center>
-</body>
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-<script>
-    function deploy () {
-        $("#auction-button").addClass("hidden");
-        $("#new-auction").removeClass("hidden");
-        $("#bid-form").removeClass("hidden");
-    }
-
-    $(document).ready(function () {
-        $('#bid-form').on('submit', function(e) {
-            e.preventDefault();
-            updateBid (this.form);
-        });
-    });
-
-    var minimumBid = 2.18;
-    var highestBid = minimumBid;
-    var biddingOpen = true;
-    function updateBid (form) {
-        console.log('here');
-        if (!biddingOpen) {
-            alert("Sorry, bidding is closed");
-            return;
-        }
-
-        var name = form.name.value;
-        var bid = form.bid.value;
-
-        // TODO: Replace with Smart Contract call to update functionality
-        if (bid > highestBid) {
-            highestBid = bid;
-
-            document.getElementById("highest-bid").innerHTML = highestBid + " ETH";
-        } else {
-            alert("Sorry, your bid must exeed the maximum bid.");
-        }
-    }
-
-    function showMinimumBid () {
-        document.getElementById("highest-bid").innerHTML = minimumBid + " ETH";
-    }
-
-    function closeBidding () {
-        biddingOpen = false;
-
-        document.getElementById("bidding-status").innerHTML = "Closed.";
-    }
-</script>
+    <div class="listing">
+        <center>
+            <img src="img/nike.jpg" width="300" height="200">
+            <div class="name"><b>Nike Zoom Shift TB Game Royal/White: <font color="red">0.26 ETH</font></b></div><br />
+            <a id="auction-button" class="btn btn-lg btn-danger">Join auction.</a>
+        </center>
+    </div>
+    <div class="listing">
+        <center>
+            <img src="img/ultraboost.jpg" width="300" height="200">
+            <div class="name"><b>Adidas Ultraboost 4.0 White Multicolor: <font color="red">0.91 ETH</font></b></div><br />
+            <a id="auction-button" class="btn btn-lg btn-danger">Join auction.</a>
+        </center>
+    </div>
+</div>
+<div class="auction-listings">
+    <div class="listing">
+        <center>
+            <img src="img/airforce.jpeg" width="300" height="200">
+            <div class="name"><b>Air Force 270 Olympic: <font color="red">0.94 ETH</font></b></div><br />
+            <a id="auction-button" class="btn btn-lg btn-danger">Join auction.</a>
+        </center>
+    </div>
+    <div class="listing">
+        <center>
+            <img src="img/lunarepic.jpeg" width="300" height="200">
+            <div class="name"><b>Nike Lunarepic Flyknit Oreo: <font color="red">0.59 ETH</font></b></div><br />
+            <a id="auction-button" class="btn btn-lg btn-danger">Join auction.</a>
+        </center>
+    </div>
+    <div id="jordan-listing" class="listing">
+        <center>
+            <img src="img/jordan.jpg" width="300" height="200">
+            <div class="name"><b>Jordan 11 Retro Win Like 96: <font color="red">1.49 ETH</font></b></div><br />
+            <a href="jordan.html" id="auction-button" class="btn btn-lg btn-danger" target="_blank">Join auction.</a>
+        </center>
+    </div>
+</div>
 </html>
