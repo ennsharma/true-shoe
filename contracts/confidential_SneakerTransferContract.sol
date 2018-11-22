@@ -50,7 +50,7 @@ contract SneakerTransferContract {
     }
 
     /// Refund a customer whose delivery window was not honored.
-    function refund() public {
+    function refund() public returns (bool) {
         require(!refunded, "The refund amount has already been refunded.");
         require(sneakerPriceAdded, "Assets not yet provided.");
         require(!delivered, "The sneakers were delivered on time.");
@@ -61,6 +61,7 @@ contract SneakerTransferContract {
         emit DeliveryTimeLimitExpired(vendor, customer);
 
         customer.transfer(sneakerPrice);
+        return true;
     }
 
     /// Verifies vendor's timely delivery via USPS oracle.

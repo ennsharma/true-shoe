@@ -17,6 +17,7 @@ contract SneakerAuctionContract {
     // Events that will be fired on changes.
     event HighestBidIncreased(address bidder, uint amount);
     event AuctionEnded(address winner, uint amount);
+    event BidderRefundScheduled(address bidder, uint amount);
 
     /// Create a simple auction with `_biddingTime`
     /// seconds bidding time on behalf of the
@@ -29,6 +30,7 @@ contract SneakerAuctionContract {
         auctionEnd = now + _biddingTime;
 
         minimumBid = _minimumBid;
+        highestBid = _minimumBid;
     }
 
     /// Bid on the auction with the value sent
@@ -57,12 +59,13 @@ contract SneakerAuctionContract {
             "There already is a higher bid."
         );
 
-        if (highestBid != 0) {
+        if (highestBid != minimumBid) {
             // Sending back the money by simply using
             // highestBidder.send(highestBid) is a security risk
             // because it could execute an untrusted contract.
             // It is always safer to let the recipients
             // withdraw their money themselves.
+            emit BidderRefundScheduled(highestBidder, highestBid);
             pendingReturns[highestBidder] += highestBid;
         }
         highestBidder = msg.sender;

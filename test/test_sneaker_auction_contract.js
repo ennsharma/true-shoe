@@ -20,26 +20,22 @@ contract("SneakerAuctionContract", (accounts) => {
   // Tests
   it('Validate that minimum bid is 1 ether', async () => {
     let minimumBid = await auctionInstance.methods.minimumBid().call();
-    assert.equal(minimumBid, web3.utils.toWei('1', 'ether'));
+    assert.equal(minimumBid, web3.utils.toWei('0.000000000001', 'ether'));
   });
 
-  // it('Validate outbidding previous highest bidder', async () => {
-  //   // Bid
-  //   await auctionInstance.methods.bid().send({ from: accounts[1], value: web3.utils.toWei('1', 'ether') });
-  //   let highestBid = await auctionInstance.methods.highestBid().call();
-  //   assert.equal(highestBid, web3.utils.toWei('1', 'ether'));
+  it('Validate outbidding previous highest bidder', async () => {
+    // Bid
+    await auctionInstance.methods.bid().send({ from: accounts[1], value: web3.utils.toWei('0.000000000002', 'ether') });
+    let highestBid = await auctionInstance.methods.highestBid().call();
+    assert.equal(highestBid, web3.utils.toWei('0.000000000002', 'ether'));
 
-  //   // // Bid higher
-  //   // await auctionInstance.methods.bid().send({ from: accounts[2], value: web3.utils.toWei('3', 'ether') });
-  //   // let newHighestBid = await auctionInstance.methods.highestBid().call();
-  //   // assert.equal(newHighestBid, web3.utils.toWei('3', 'ether'));
-
-  //   // // Lower bidder withdraws
-  //   // let withdrawSuccessfulLower = await auctionInstance.methods.withdraw().send({ from: accounts[1] });
-  //   // assert.equal(withdrawSuccessfulLower, true);
-
-  //   // // Higher bidder can't withdraw
-  //   // let withdrawSuccessfulHigher = await auctionInstance.methods.withdraw().call({ from: accounts[2] });
-  //   // assert.equal(withdrawSuccessfulHigher, false);
-  // });
+    // Bid higher
+    await auctionInstance.methods.bid().send({ from: accounts[2], value: web3.utils.toWei('0.000000000003', 'ether') });
+    let newHighestBid = await auctionInstance.methods.highestBid().call();
+    assert.equal(newHighestBid, web3.utils.toWei('0.000000000003', 'ether'));
+    
+    // Don't let the highest bidder withdraw
+    let withdrawSuccessful = await auctionInstance.methods.withdraw().call({ from: accounts[2] });
+    assert.equal(withdrawSuccessful, false);
+  });
 });
