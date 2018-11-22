@@ -144,6 +144,7 @@
         <form>
             <input type="text" name="name" placeholder="Your Name" />
             <input type="number" step="0.01" name="bid" placeholder="Your Bid (in ETH)" />
+            <input type="text" name="address" placeholder="Your Wallet Address" />
             <input type="submit" value="Click" onClick="updateBid(this.form)"/>
         </form>
     </div>
@@ -176,6 +177,7 @@
 
         var name = form.name.value;
         var bid = form.bid.value;
+        var address = form.address.value;
 
         // TODO: Replace with Smart Contract call to update functionality
         if (bid > highestBid) {
