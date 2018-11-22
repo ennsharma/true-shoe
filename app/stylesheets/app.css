@@ -97,6 +97,17 @@ h3 {
   padding-top:10px;
 }
 
+.listing {
+    display: inline;
+}
+.name {
+    display: inline;
+}
+.listing img {
+    width: 13%;
+    display: block;
+}
+
 .blinking{
   animation:blinkingText 0.8s infinite;
 }
