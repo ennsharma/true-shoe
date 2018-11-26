@@ -8,8 +8,14 @@ Coming soon!
 
 ## Screenshots
 
-Here is what the listings, auction, and purchases pages look like.
+Here are some screenshots of the TrueShoe platform.
+
+### Listings
 
 ![Alt text](images/dapp.png)
+
+### Auction Details
 ![Alt text](images/auction.png)
+
+### Order History
 ![Alt text](images/dapp_purchases.png)
