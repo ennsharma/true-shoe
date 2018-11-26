@@ -5,3 +5,11 @@ This dApp demonstrates smart contract confidentiality using an auction system fo
 ## Setup and Installation
 
 Coming soon!
+
+## Screenshots
+
+Here is what the listings, auction, and purchases pages look like.
+
+![Alt text](images/dapp.png)
+![Alt text](images/auction.png)
+![Alt text](images/dapp_purchases.png)
