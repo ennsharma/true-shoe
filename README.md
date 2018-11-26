@@ -51,10 +51,10 @@ Here are some screenshots of the TrueShoe platform.
 
 ### Listings
 
-![Alt text](images/dapp.png)
+![Alt text](assets/images/dapp.png)
 
 ### Auction Details
-![Alt text](images/auction.png)
+![Alt text](assets/images/auction.png)
 
 ### Order History
-![Alt text](images/dapp_purchases.png)
+![Alt text](assets/images/dapp_purchases.png)
