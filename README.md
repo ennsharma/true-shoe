@@ -7,7 +7,7 @@ This dApp demonstrates smart contract confidentiality using an auction system fo
 Before you begin buying and selling shoes on TrueShoe, make sure you complete the following prerequisites:
 
 1. Set up a digital payments wallet by downloading [Metamask](https://metamask.io/)!
-2. Purchase DEV tokens from the [Oasis Labs Devnet](https://faucet.oasiscloud.io/) for a digital asset to use for participating in shoe auctions.
+2. Configure your digital payments wallet to use Oasis DEV tokens by following instructions at [this link](https://docs.oasiscloud.io/en/latest/quickstart-guide/) and purchase DEV tokens from the [Oasis Labs Faucet](https://faucet.oasiscloud.io/) for a digital asset to use for participating in shoe auctions.
 3. Download [Homebrew](https://brew.sh/).
 
 Once you've setup and configured your digital wallet and downloaded Homebrew, you're ready to proceed with installation! Run the following command in your terminal to install Node.js:
