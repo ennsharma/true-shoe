@@ -84,7 +84,10 @@
     }
     </style>
 </head>
-<body class="container" onload="showMinimumBid()">
+<body class="container" onload="showMinimumBid(2.18)">
+<div align="right">
+    <a href="purchases.html" id="checkout-button" class="btn btn-lg btn-danger" target="_blank">Proceed to checkout</a>
+</div>
 <center><h1>TrueShoe Auction dApp</h1></center>
 <center>
     <div class="center">
@@ -151,52 +154,5 @@
 </center>
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-<script>
-    function deploy () {
-        $("#auction-button").addClass("hidden");
-        $("#new-auction").removeClass("hidden");
-        $("#bid-form").removeClass("hidden");
-    }
-
-    $(document).ready(function () {
-        $('#bid-form').on('submit', function(e) {
-            e.preventDefault();
-            updateBid (this.form);
-        });
-    });
-
-    var minimumBid = 2.18;
-    var highestBid = minimumBid;
-    var biddingOpen = true;
-    function updateBid (form) {
-        console.log('here');
-        if (!biddingOpen) {
-            alert("Sorry, bidding is closed");
-            return;
-        }
-
-        var name = form.name.value;
-        var bid = form.bid.value;
-        var address = form.address.value;
-
-        // TODO: Replace with Smart Contract call to update functionality
-        if (bid > highestBid) {
-            highestBid = bid;
-
-            document.getElementById("highest-bid").innerHTML = highestBid + " ETH";
-        } else {
-            alert("Sorry, your bid must exeed the maximum bid.");
-        }
-    }
-
-    function showMinimumBid () {
-        document.getElementById("highest-bid").innerHTML = minimumBid + " ETH";
-    }
-
-    function closeBidding () {
-        biddingOpen = false;
-
-        document.getElementById("bidding-status").innerHTML = "Closed.";
-    }
-</script>
+<script src="javascript/app.js"></script>
 </html>

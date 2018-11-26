@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kyrie Auction</title>
+    <title>My Purchases</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <style type="text/css">
@@ -85,57 +85,41 @@
     </style>
 </head>
 <body class="container" onload="showMinimumBid(2.37)">
-<div align="right">
-    <a href="purchases.html" id="checkout-button" class="btn btn-lg btn-danger" target="_blank">Proceed to checkout</a>
-</div>
 <center><h1>TrueShoe Auction dApp</h1></center>
-<center>
-    <div class="center">
-        <div><b>Item:</b> Kyrie 4 Confetti</div><br />
-        <a id="auction-button" onclick="deploy()" class="btn btn-lg btn-danger hidden">Create auction.</a><br />
-        <span id="deploy-status"></span>
-    </div>
-</center>
 <div id="new-auction" class="table-responsive">
     <center>
-        <div><img src="img/kyrie.jpg" width="300" height="200">
-        <div><b>Bidding:</b>&nbsp;&nbsp;<span id="bidding-status">Open!</span></div>
-        <div><b>Highest Bid:</b>&nbsp;&nbsp;<span id="highest-bid"></span></div>
-        <div class="alert alert-info wallet-div hidden" id="wallet-div">
-            <div><b>Your wallet address</b>
-                <div id="wallet-address"></div>
-            </div>
-        </div>
         <table class="table table-striped" id="auction-table">
             <thead>
             <tr>
-                <th>Item Specs</th>
+                <th>My Cart</th>
             </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Style</td>
-                    <td>943806-900/AJ1691-900</td>
+                    <td><a href="kyrie.html" target="_blank">Kyrie 4 Confetti</a></td>
+                    <td>2.41 ETH</td>
+                    <td><img src="img/kyrie.jpg" width="60" height="40"></td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+    <center>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>My Purchases</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="yeezy.html" target="_blank">Adidas Yeezy Boost 350 V2 Zebra</a></td>
+                    <td>2.70 ETH</td>
+                    <td><img src="img/yeezy.jpg" width="60" height="40"></td>
                 </tr>
                 <tr>
-                    <td>Colorway</td>
-                    <td>Multicolor/Multicolor</td>
-                </tr>
-                <tr>
-                    <td>Retail Price</td>
-                    <td>$120</td>
-                </tr>
-                <tr>
-                    <td>Release Date</td>
-                    <td>2017-12-16</td>
-                </tr>
-                <tr>
-                    <td>Size</td>
-                    <td>U.S. Men's 9.5</td>
-                </tr>
-                <tr>
-                    <td>Last Sale</td>
-                    <td>$365</td>
+                    <td><a href="jordan.html" target="_blank">Jordan 11 Retro Win Like 96</a></td>
+                    <td>1.49 ETH</td>
+                    <td><img src="img/jordan.jpg" width="60" height="40"></td>
                 </tr>
             </tbody>
         </table>
@@ -143,12 +127,8 @@
 </div>
 <center>
     <div id="bid-form" class="form-style-6">
-        <h3>Place your bid!</h3>
         <form>
-            <input type="text" name="name" placeholder="Your Name" />
-            <input type="number" step="0.01" name="bid" placeholder="Your Bid (in ETH)" />
-            <input type="text" name="address" placeholder="Your Wallet Address" />
-            <input type="submit" value="Click" onClick="updateBid(this.form)"/>
+            <input type="submit" value="Proceed to Checkout"/>
         </form>
     </div>
 </center>
