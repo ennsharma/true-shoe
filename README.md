@@ -2,6 +2,11 @@
 
 This dApp demonstrates smart contract confidentiality using an auction system for purchasing the latest and greatest hype footwear. From auction to purchase to delivery, the entire customer experience is regulated by the TrueShoe platform.
 
+## Components
+
+1. **Smart Contract** - TrueShoe leverages a smart contract to manage shoe resale auctions and reallocate funds from the auction winner to the seller based on item delivery status.
+2. **Client-side Web App** - TrueShoe implements a web application with interfaces for users to add shoes to our current listings, bid in auctions, and verify shoe authenticity for themselves.
+
 ## Setup and Installation
 
 Before you begin buying and selling shoes on TrueShoe, make sure you complete the following prerequisites:
