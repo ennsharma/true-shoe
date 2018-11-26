@@ -41,6 +41,10 @@ truffle test --network oasis
 
 This should pass upon initial installation, and can be used to verify that the expected behavior continues to hold after any local modifications you may choose to make to suit your purposes.
 
+## System Architecture
+
+Access our [system architecture overview](assets/trueshoe_arch.pdf)! Feedback is always welcome!
+
 ## Screenshots
 
 Here are some screenshots of the TrueShoe platform.
