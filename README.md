@@ -46,9 +46,9 @@ truffle test --network oasis
 
 This should pass upon initial installation, and can be used to verify that the expected behavior continues to hold after any local modifications you may choose to make to suit your purposes.
 
-## System Architecture
+## System Architecture and Business Model
 
-Access our [system architecture overview](assets/trueshoe_arch.pdf)! Feedback is always welcome!
+Access information about our system architecture and proposed business model by reading our [whitepaper](assets/whitepaper.pdf)! Feedback is always welcome!
 
 ## Screenshots
 
